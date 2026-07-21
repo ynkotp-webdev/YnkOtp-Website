@@ -9,10 +9,10 @@ function FooterSection() {
         .lp-footer a:hover{color:var(--copper)}
         .lp-footer b{color:var(--copper);font-weight:500}
       `), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("a", {
-    href: "https://github.com/ynkotp228",
+    href: "https://github.com/ynkotp-webdev",
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "github.com/ynkotp228"), " · ", /*#__PURE__*/React.createElement("a", {
+  }, "github.com/ynkotp-webdev"), " · ", /*#__PURE__*/React.createElement("a", {
     href: "https://instagram.com/ynkotp_dev",
     target: "_blank",
     rel: "noopener noreferrer"
