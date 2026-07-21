@@ -1,0 +1,24 @@
+/* Self-hosted brand fonts. Space Grotesk has no Cyrillic in any weight (confirmed by the
+   type designer) — scoped to --font-wordmark for the "ynkotp_dev" lockup only, never body
+   copy or headings. Onest is the display font for Cyrillic H1/H2/H3, replacing Space Grotesk
+   in that role. Inter and JetBrains Mono are unchanged. */
+@font-face{font-family:'Onest';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/onest-500.woff2') format('woff2')}
+@font-face{font-family:'Onest';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/onest-600.woff2') format('woff2')}
+@font-face{font-family:'Onest';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/onest-700.woff2') format('woff2')}
+
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/space-grotesk-500.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/space-grotesk-600.woff2') format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/space-grotesk-700.woff2') format('woff2')}
+
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/inter-400.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/inter-500.woff2') format('woff2')}
+
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/jetbrains-mono-400.woff2') format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/jetbrains-mono-500.woff2') format('woff2')}
+
+:root{
+  --font-display:'Onest',sans-serif;
+  --font-wordmark:'Space Grotesk',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}

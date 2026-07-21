@@ -1,0 +1,10 @@
+:root{
+  --ease-standard:cubic-bezier(0.4,0,0.2,1);
+  --duration-fast:150ms;
+  --duration-base:250ms;
+  --duration-slow:400ms;
+}
+/* scroll-reveal: hero is excluded, everything below fades+lifts once per element */
+.reveal{opacity:0;transform:translateY(8px);transition:opacity var(--duration-base) var(--ease-standard),transform var(--duration-base) var(--ease-standard)}
+.reveal.is-visible{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}

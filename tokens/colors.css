@@ -1,0 +1,12 @@
+:root{
+  --ink:#0B0B0D;
+  --surface:#16151A;
+  --copper:#C67A45;
+  --copper-soft:#E0A374;
+  --text-hi:#F4F1EC;
+  --text-mid:#A29B92;
+  --text-low:#5E5A54;
+  --border:#26241F;
+  --state-error:#C64545;
+  --state-error-bg:rgba(198,69,69,0.10);
+}
