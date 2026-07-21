@@ -6,6 +6,7 @@ const {
   FormField,
   Button
 } = window.YnkotpDevDesignSystem_59759c;
+const FORM_ENDPOINT = 'https://formspree.io/f/xdaqdnwz';
 function ContactSection() {
   const [values, setValues] = React.useState({
     name: '',
@@ -20,16 +21,29 @@ function ContactSection() {
       [field]: e.target.value
     }));
   }
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
+    const form = e.target;
     const nextErrors = {};
     if (!values.name.trim()) nextErrors.name = 'Заповніть це поле';
     if (!values.contact.trim()) nextErrors.contact = 'Заповніть це поле';
     if (!values.message.trim()) nextErrors.message = 'Заповніть це поле';
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
+    if (form.elements._gotcha.value) return; // honeypot tripped — silently drop
     setStatus('sending');
-    setTimeout(() => setStatus('sent'), 900);
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+      setStatus(res.ok ? 'sent' : 'error');
+    } catch {
+      setStatus('error');
+    }
   }
   return /*#__PURE__*/React.createElement("section", {
     id: "contact",
@@ -43,6 +57,7 @@ function ContactSection() {
         .lp-contact-alt a{color:var(--copper)}
         .lp-contact-alt a:hover{color:var(--copper-soft)}
         .lp-contact-sent{font-family:var(--font-display);font-weight:500;font-size:20px;color:var(--copper);max-width:420px}
+        .lp-contact-error{font-family:var(--font-body);font-size:13px;color:var(--state-error);margin:0}
       `), /*#__PURE__*/React.createElement(ScrollReveal, null, /*#__PURE__*/React.createElement(SectionHeading, {
     eyebrow: "Зробити перший крок",
     title: "Готові обговорити свій сайт?"
@@ -52,8 +67,27 @@ function ContactSection() {
     className: "lp-contact-sent"
   }, "Дякую! Відповім найближчим часом.") : /*#__PURE__*/React.createElement("form", {
     className: "lp-contact-form",
-    onSubmit: submit
-  }, /*#__PURE__*/React.createElement(FormField, {
+    onSubmit: submit,
+    action: FORM_ENDPOINT,
+    method: "POST"
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    name: "_gotcha",
+    tabIndex: "-1",
+    autoComplete: "off",
+    "aria-hidden": "true",
+    style: {
+      position: 'absolute',
+      left: '-9999px',
+      width: '1px',
+      height: '1px',
+      opacity: 0
+    }
+  }), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "_subject",
+    value: "Нова заявка з сайту ynkotp_dev"
+  }), /*#__PURE__*/React.createElement(FormField, {
     label: "Ім'я",
     name: "name",
     value: values.name,
@@ -75,7 +109,9 @@ function ContactSection() {
     onChange: update('message'),
     error: errors.message,
     placeholder: "Який бізнес, що потрібно"
-  }), /*#__PURE__*/React.createElement(Button, {
+  }), status === 'error' && /*#__PURE__*/React.createElement("p", {
+    className: "lp-contact-error"
+  }, "Щось пішло не так. Спробуйте ще раз або напишіть у Direct нижче."), /*#__PURE__*/React.createElement(Button, {
     type: "submit",
     disabled: status === 'sending'
   }, status === 'sending' ? 'Надсилаю...' : 'Надіслати'))), /*#__PURE__*/React.createElement(ScrollReveal, null, /*#__PURE__*/React.createElement("p", {
